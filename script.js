@@ -2,6 +2,7 @@ const informationContainer = document.querySelector(".information-container");
 const btnSearch = document.querySelector(".search-button");
 const searchInput = document.querySelector(".search-bar");
 const sortByUSN = document.querySelector(".sort-by-usn");
+const notFound = document.querySelector(".not-found");
 
 const dataObj = [
   {
@@ -243,18 +244,27 @@ const initialHTML = () => {
 
 btnSearch.addEventListener("click", function (e) {
   e.preventDefault();
-  initialHTML();
+  let count = 0;
   const searchToken = searchInput.value;
+  initialHTML();
   usn = Number.parseInt(searchToken.slice(-3));
   if (usn) {
     mergeSort(dataObj, 0, dataObj.length - 1);
     const result = binarySearch(dataObj, 0, dataObj.length - 1, usn);
-    if (result != -1) render(dataObj[result]);
+    if (result != -1) {
+      if (!notFound.classList.contains("hidden"))
+        notFound.classList.add("hidden");
+      render(dataObj[result]);
+    } else notFound.classList.remove("hidden");
   } else {
     dataObj.forEach((data, i) => {
       if (data.name.toUpperCase().startsWith(searchToken.toUpperCase())) {
+        count++;
+        if (!notFound.classList.contains("hidden"))
+          notFound.classList.add("hidden");
         render(dataObj[i]);
       }
+      if (count == 0) notFound.classList.remove("hidden");
     });
   }
 });

@@ -99,8 +99,17 @@ body {
   padding: 0 0 80px 0;
 }
 .detail-heading {
+  display: flex;
   margin: 30px 0 30px 30px;
 }
+.detail-heading-text {
+  width: 20%;
+}
+.not-found {
+  width: 60%;
+  text-align: center;
+}
+
 .information-container {
   height: 500px;
   overflow-y: scroll;
@@ -165,4 +174,8 @@ body {
 
 *:focus {
   outline: none;
+}
+
+.hidden {
+  display: none;
 }
